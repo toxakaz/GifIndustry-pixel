@@ -41,9 +41,9 @@ Correct scheme may have "overmind core", "drawing cores" splitted into \<MemCell
 
 
 - "Overmind core" is used for choose which frame should be drawn into display. It must  be filled by file "overmind.txt".
-- "Drawing cores" takes the frame nuber from current memory cell and draw that frame. If \<MemCells\> > 1 then "drawing cores" will work group by group, which decrease the display buffer overflow chanse. They must  be filled by files from "01.txt" to "\<n\>.txt".
+- "Drawing cores" takes the frame nuber from current memory cell and draw that frame. If \<MemCells\> > 1 then "drawing cores" will work group by group, which decrease the display buffer overflow chance. They must  be filled by files from "01.txt" to "\<n\>.txt".
 
-Correct connection you can see in image below.
+Correct connection you can see in the image below.
 ![image](https://user-images.githubusercontent.com/54832404/169396447-15fd97b0-ae58-4402-ab60-021eabb0a843.png)
 
 
