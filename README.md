@@ -34,14 +34,14 @@ Buttons description:
 
 # Connection guide:
 
-After you save the code for cores you may find the files like "01.txt" - "<n>.txt" and "overmind.txt". Let's figure out what to do with them and how to connect cores.
+After you save the code for cores you may find the files like "01.txt" - "\<n\>.txt" and "overmind.txt". Let's figure out what to do with them and how to connect cores.
 
 
-Correct scheme may have "overmind core", "drawing cores" splitted into <MemCells> groups, <MemCells> memory cells for comunication between "overmind core" and "drawing cores" and display.
+Correct scheme may have "overmind core", "drawing cores" splitted into \<MemCells\> groups, <MemCells> memory cells for comunication between "overmind core" and "drawing cores" and display.
 
 
 - "Overmind core" is used for choose which frame should be drawn into display. It must  be filled by file "overmind.txt".
-- "Drawing cores" takes the frame nuber from current memory cell and draw that frame. If <MemCells> > 1 then "drawing cores" will work group by group, which decrease the display buffer owerflow chanse. They must  be filled by files from "01.txt" to "<n>.txt".
+- "Drawing cores" takes the frame nuber from current memory cell and draw that frame. If \<MemCells\> > 1 then "drawing cores" will work group by group, which decrease the display buffer owerflow chanse. They must  be filled by files from "01.txt" to "\<n\>.txt".
 
 Correct connection you can see in image below.
 ![image](https://user-images.githubusercontent.com/54832404/169396447-15fd97b0-ae58-4402-ab60-021eabb0a843.png)
