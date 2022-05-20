@@ -5,6 +5,9 @@ Gif maker for mindustry.
 This program allows you to generate code for mindustry cores for printing gif images into display.
 
 
+My doscord: ToxaKaz#2433
+
+
 # User manual:
 
 Let's figure out what we can see in this interface.
