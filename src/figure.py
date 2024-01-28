@@ -1,17 +1,20 @@
 from abc import ABC, abstractmethod
-from utils import *
 from color import Color
+from utils import *
 
 
 class Figure(ABC):
+    @property
     @abstractmethod
     def dots(self) -> list[Dot]:
         raise NotImplementedError
 
+    @property
     @abstractmethod
     def color(self) -> Color:
         raise NotImplementedError
 
+    @property
     @abstractmethod
     def command(self) -> str:
         raise NotImplementedError
@@ -26,12 +29,15 @@ class Triangle(Figure):
         self.dots = tuple(dots)
         self.color = color
 
+    @property
     def dots(self) -> list[Dot]:
         return list(self.dots)
 
+    @property
     def color(self) -> Color:
         return self.color
 
+    @property
     def command(self) -> str:
         result = "draw triangle"
         for dot in self.dots:
