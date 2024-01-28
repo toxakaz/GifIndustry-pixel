@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from color import Color
 
 
 class Figure(ABC):
@@ -9,7 +10,7 @@ class Figure(ABC):
 
     # RGB
     @abstractmethod
-    def color(self) -> list[(int, int, int)]:
+    def color(self) -> Color:
         pass
 
     @abstractmethod
