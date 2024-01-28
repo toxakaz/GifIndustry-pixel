@@ -15,12 +15,13 @@ class Color(ABC):
 
 
 class ColorRGB(Color):
-    def __init__(self, coordinates: tuple[int, int, int]) -> None:
-        self.coordinates = tuple(coordinates)
+    def __init__(self, r: int, g: int, b: int) -> None:
+        self.coordinates = (r, g, b)
 
     @classmethod
-    def from_RGB(cls, r: int, g: int, b: int) -> "ColorRGB":
-        return cls((r, g, b))
+    def from_RGB(cls, coordinates: tuple[int, int, int]) -> "ColorRGB":
+        r, g, b = coordinates
+        return cls(r, g, b)
 
     @property
     def color_space(self) -> ColorSpace:
@@ -28,12 +29,13 @@ class ColorRGB(Color):
 
 
 class ColorOKLAB(Color):
-    def __init__(self, coordinates: tuple[float, float, float]) -> None:
-        self.coordinates = coordinates
+    def __init__(self, L: float, a: float, b: float) -> None:
+        self.coordinates = (L, a, b)
 
     @classmethod
-    def from_Lab(cls, L: float, a: float, b: float) -> "ColorOKLAB":
-        return cls((L, a, b))
+    def from_Lab(cls, coordinates: tuple[float, float, float]) -> "ColorOKLAB":
+        L, a, b = coordinates
+        return cls(L, a, b)
 
     @classmethod
     def from_ColorRGB(cls, source: ColorRGB) -> "ColorOKLAB":
