@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from utils import *
+from color import Color
 
 
 class Figure(ABC):
