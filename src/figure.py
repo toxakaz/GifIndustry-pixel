@@ -7,21 +7,21 @@ class Figure(ABC):
     # dots of figure
     @abstractmethod
     def dots(self) -> list[Dot]:
-        pass
+        raise NotImplementedError
 
     # RGB
     @abstractmethod
     def color(self) -> Color:
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def command(self) -> str:
-        pass
+        raise NotImplementedError
 
     # move the Figure
     @abstractmethod
     def shift(self, x_shift: int, y_shift: int) -> "Figure":
-        pass
+        raise NotImplementedError
 
 
 class Triangle(Figure):

@@ -7,5 +7,5 @@ def triangulate_from_file(path: str) -> list[Picture]:
     return triangulate(Image.open(path))
 
 
-def triangulate(gif: Image) -> list[Picture]:
-    pass
+def triangulate(gif: Image.Image) -> list[Picture]:
+    raise NotImplementedError
