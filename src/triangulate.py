@@ -7,5 +7,4 @@ def triangulate_from_file(path: str) -> list[Figure]:
 
 
 def triangulate(gif: Image) -> list[Figure]:
-    Triangle()
-    return 0
+    pass
