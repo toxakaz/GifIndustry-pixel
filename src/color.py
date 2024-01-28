@@ -36,13 +36,10 @@ class ColorOKLAB(Color):
 
     @staticmethod
     def from_RGB(source: ColorRGB) -> "ColorOKLAB":
-
-        l = 0.4122214708 * source.coordinates[0] + 0.5363325363 * \
-            source.coordinates[1] + 0.0514459929 * source.coordinates[2]
-        m = 0.2119034982 * source.coordinates[0] + 0.6806995451 * \
-            source.coordinates[1] + 0.1073969566 * source.coordinates[2]
-        s = 0.0883024619 * source.coordinates[0] + 0.2817188376 * \
-            source.coordinates[1] + 0.6299787005 * source.coordinates[2]
+        r, g, b = source.coordinates
+        l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b
+        m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b
+        s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
 
         l_ = l**(1/3)
         m_ = m**(1/3)

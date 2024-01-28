@@ -4,12 +4,10 @@ from color import Color
 
 
 class Figure(ABC):
-    # dots of figure
     @abstractmethod
     def dots(self) -> list[Dot]:
         raise NotImplementedError
 
-    # RGB
     @abstractmethod
     def color(self) -> Color:
         raise NotImplementedError
@@ -18,7 +16,6 @@ class Figure(ABC):
     def command(self) -> str:
         raise NotImplementedError
 
-    # move the Figure
     @abstractmethod
     def shift(self, x_shift: int, y_shift: int) -> "Figure":
         raise NotImplementedError
