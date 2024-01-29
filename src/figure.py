@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from color import Color
 from utils import *
+from PIL import Image, ImageDraw
 
 
 class Figure(ABC):
@@ -11,7 +11,7 @@ class Figure(ABC):
 
     @property
     @abstractmethod
-    def color(self) -> Color:
+    def color(self) -> RGB:
         raise NotImplementedError
 
     @property
@@ -23,19 +23,31 @@ class Figure(ABC):
     def shift(self, x_shift: int, y_shift: int) -> "Figure":
         raise NotImplementedError
 
+    def draw(self, img: Image.Image):
+        img_draw = ImageDraw.Draw(img)
+        img_draw.polygon(self.dots, fill=self.color, width=0)
+
 
 class Triangle(Figure):
-    def __init__(self, dots: tuple[Dot, Dot, Dot], color: Color) -> None:
+    def __init__(self, dots: tuple[Dot, Dot, Dot], color: RGB) -> None:
         self.dots = tuple(dots)
         self.color = color
 
     @property
     def dots(self) -> list[Dot]:
-        return list(self.dots)
+        return list(self._dots)
+
+    @dots.setter
+    def dots(self, value: list[Dot]):
+        self._dots = value
 
     @property
-    def color(self) -> Color:
-        return self.color
+    def color(self) -> RGB:
+        return self._color
+
+    @color.setter
+    def color(self, color: RGB):
+        self._color = color
 
     @property
     def command(self) -> str:
