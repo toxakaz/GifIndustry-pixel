@@ -44,7 +44,7 @@ class ColorOKLAB(Color):
 
     @classmethod
     def from_RGB(cls, source: RGB):
-        return cls(RGB_to_OKLAB(source))
+        return cls.from_Lab(RGB_to_OKLAB(source))
 
     @property
     def color_space(self) -> ColorSpace:
