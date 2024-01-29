@@ -6,12 +6,12 @@ from PIL import Image, ImageDraw
 class Figure(ABC):
     @property
     @abstractmethod
-    def dots(self) -> list[Dot]:
+    def dots(self) -> tuple[Dot]:
         raise NotImplementedError
 
     @property
     @abstractmethod
-    def color(self) -> RGB:
+    def color(self) -> Color:
         raise NotImplementedError
 
     @property
@@ -29,30 +29,22 @@ class Figure(ABC):
 
 
 class Triangle(Figure):
-    def __init__(self, dots: tuple[Dot, Dot, Dot], color: RGB) -> None:
-        self.dots = tuple(dots)
-        self.color = color
-
-    @property
-    def dots(self) -> list[Dot]:
-        return list(self._dots)
-
-    @dots.setter
-    def dots(self, value: list[Dot]):
-        self._dots = value
-
-    @property
-    def color(self) -> RGB:
-        return self._color
-
-    @color.setter
-    def color(self, color: RGB):
+    def __init__(self, dots: tuple[Dot, Dot, Dot], color: Color) -> None:
+        self._dots = dots
         self._color = color
+
+    @property
+    def dots(self) -> tuple[Dot]:
+        return self._dots
+
+    @property
+    def color(self) -> Color:
+        return self._color
 
     @property
     def command(self) -> str:
         result = "draw triangle"
-        for dot in self.dots:
+        for dot in self._dots:
             result += f" {dot[0]} {dot[1]}"
         return result
 

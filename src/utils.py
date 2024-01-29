@@ -1,5 +1,6 @@
 
 Dot = tuple[int, int]
+Color = tuple[int] | tuple[float]
 RGB = tuple[int, int, int] | tuple[float, float, float]
 OKLAB = tuple[float, float, float]
 
