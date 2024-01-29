@@ -43,7 +43,7 @@ class ColorOKLAB(Color):
         return cls.from_RGB(source.coordinates)
 
     @classmethod
-    def from_RGB(cls, source: RGB):
+    def from_RGB(cls, source: RGB) -> "ColorOKLAB":
         return cls.from_Lab(RGB_to_OKLAB(source))
 
     @property
