@@ -7,6 +7,9 @@ OKLAB = tuple[float, float, float]
 
 def RGB_to_OKLAB(rgb_source: RGB) -> OKLAB:
     r, g, b = rgb_source
+    r /= 255
+    g /= 255
+    b /= 255
     l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b
     m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b
     s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
