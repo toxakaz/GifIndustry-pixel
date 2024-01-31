@@ -36,7 +36,10 @@ def sobel_points(img: np.ndarray, n_points: int) -> tuple[tuple[int, int], dict]
     mag = np.sum(np.power(sobel(img[:, :, i]), 2) for i in range(img.shape[2]))
     mag_norm = mag / mag.sum()
     points = random.choices(
-        [(i[1], i[0]) for i in np.ndindex(img.shape[:2])], k=n_points, weights=mag_norm.flat)
+        [i[::-1] for i in np.ndindex(img.shape[:2])],
+        k=n_points,
+        weights=mag_norm.flat
+    )
     return (points, dict())
 
 
