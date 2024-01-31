@@ -19,9 +19,8 @@ def kmeans_points(img: np.ndarray, n_triangles: int) -> np.ndarray:
     clusters = KMeans(n_clusters=n_triangles + 2).fit(img_t).cluster_centers_
     return scaler.inverse_transform(clusters/param_scales)
 
+
 # actually implement sobel here
-
-
 def sobel_kmeans_points(img: np.ndarray, n_triangles: int) -> np.ndarray:
     scaler = MinMaxScaler()
     scaler.fit(img)
