@@ -6,10 +6,14 @@ from utils import RGB_to_OKLAB, RGB_img_to_OKLAB
 
 import random
 
-img = Image.open("../data/imgs/parrots.webp")
-img.convert("RGB")
+img = Image.open("../data/gifs/earth.gif")
 
-img_array = np.array(img, dtype=np.float32)
+frame = img.copy().convert('RGB')
+
+img_array = np.array(frame, dtype=np.float32)
+
+print(img_array.shape)
+print(img_array)
 
 print("converting")
 
@@ -26,9 +30,9 @@ print(pixels)
 
 print("clustering")
 
-points = sobel_points(img_array, 4096)
+points = sobel_points(img_array, 512)
 triangles = build_triangles_delaunay(np.array(points[0]))
-img_draw = ImageDraw.Draw(img)
+img_draw = ImageDraw.Draw(frame)
 
 for triangle in triangles:
     img_draw.polygon(
@@ -37,4 +41,4 @@ for triangle in triangles:
         width=1
     )
 
-img.show()
+frame.show()
