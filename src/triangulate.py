@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 from skimage.filters import sobel
 from scipy.spatial import Delaunay
 from sklearn.preprocessing import MinMaxScaler, normalize
+from shapely import contains_xy, prepare
 import random
 
 
@@ -51,20 +52,26 @@ def raster_triangles(triangles: np.ndarray):
 
 
 def raster_triangle(triangle: np.ndarray):
-    poly = to_polygon(triangle)
-    min_x, min_y = np.min(triangle, axis=0)
-    max_x, max_y = np.max(triangle, axis=0)
+    min_xy = np.min(triangle, axis=0)
+    max_xy = np.max(triangle, axis=0)
 
-    points_inside = [
-        np.array([x, y])
-        for x in range(min_x, max_x)
-        for y in range(min_y, max_y)
-        if polygon_contains_point(poly, to_point((x, y)))
+    poly = to_polygon(triangle-min_xy)
+    prepare(poly)
+
+    # points = np.array([(x, y) for x in range(min_x, max_x)
+    # for y in range(min_y, max_y)])
+    points = list(np.ndindex(tuple(max_xy-min_xy)))
+
+    points = np.array(points)[
+        np.array([
+            contains_xy(poly, p[0], p[1])
+            for p in points
+        ])
     ]
 
-    if points_inside:
-        points = np.concatenate((triangle, points_inside))
+    if 0 not in points.shape:
+        points = np.concatenate((triangle, points + min_xy))
     else:
-        points = np.array(triangle)
+        points = triangle
 
     return (triangle, points)

@@ -1,8 +1,9 @@
 from PIL import Image, ImageDraw
 import numpy as np
-from triangulate import kmeans_points, build_triangles_delaunay, sobel_points
+from triangulate import *
 from sklearn.preprocessing import MinMaxScaler
 from utils import RGB_to_OKLAB, RGB_img_to_OKLAB
+from time import time
 
 import random
 
@@ -15,9 +16,10 @@ img_array = np.array(frame, dtype=np.float32)
 print(img_array.shape)
 print(img_array)
 
-print("converting")
-
+t1 = time()
+print(f"start convert")
 img_array = RGB_img_to_OKLAB(img_array)
+print(f"Stop convert, elapsed: {time()-t1}")
 
 print("pixelating")
 
@@ -32,6 +34,10 @@ print("clustering")
 
 points = sobel_points(img_array, 512)
 triangles = build_triangles_delaunay(np.array(points[0]))
+t1 = time()
+print(f"start raster")
+a = raster_triangles(triangles)
+print(f"Stop raster, elapsed: {time()-t1}")
 img_draw = ImageDraw.Draw(frame)
 
 for triangle in triangles:
