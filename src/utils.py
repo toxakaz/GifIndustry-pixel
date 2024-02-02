@@ -1,6 +1,7 @@
 import numpy as np
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
+from shapely import contains_xy, prepare
 
 
 Dot = tuple[int, int] | tuple[float, float]
@@ -14,7 +15,7 @@ def RGB_img_to_OKLAB(img: np.ndarray) -> np.ndarray:
 
 
 def RGB_to_OKLAB(source: RGB | np.ndarray) -> np.ndarray:
-    r, g, b = np.array(source, float)[:3]/255
+    r, g, b = np.array(source, float)[:3] / 255
 
     l = np.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
     m = np.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b)
@@ -32,8 +33,14 @@ def to_point(point: np.ndarray) -> Point:
 
 
 def to_polygon(poly: np.ndarray) -> Polygon:
-    return Polygon(poly)
+    poly = Polygon(poly)
+    prepare(poly)
+    return poly
 
 
 def polygon_contains_point(poly: Polygon, point: Point) -> bool:
     return poly.contains(point)
+
+
+def polygon_contains_xy(poly: Polygon, point: tuple) -> bool:
+    return contains_xy(poly, point[0], point[1])
