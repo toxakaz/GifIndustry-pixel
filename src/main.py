@@ -6,7 +6,7 @@ from utils import RGB_to_OKLAB, RGB_img_to_OKLAB
 
 import random
 
-img = Image.open("../data/gifs/earth.gif")
+img = Image.open("../data/imgs/parrots.webp")
 
 frame = img.copy().convert('RGB')
 
