@@ -44,3 +44,21 @@ def sobel_points(img: np.ndarray, n_points: int) -> tuple[tuple[int, int], dict]
 
 def build_triangles_delaunay(points: np.ndarray):
     return points[Delaunay(points).simplices]
+
+
+def raster_triangles(triangles: np.ndarray):
+    return [raster_triangle(triangle) for triangle in triangles]
+
+
+def raster_triangle(triangle: np.ndarray):
+    poly = to_polygon(triangle)
+    min_x, min_y = np.min(triangle, axis=0)
+    max_x, max_y = np.max(triangle, axis=0)
+
+    points_inside = [
+        np.array([x, y])
+        for x, y in zip(range(min_x, max_x), range(min_y, max_y))
+        if polygon_contains_point(poly, to_point((x, y)))
+    ]
+
+    return (triangle, np.concatenate((triangle, points_inside)))

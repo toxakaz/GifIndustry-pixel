@@ -1,4 +1,6 @@
 import numpy as np
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
 
 
 Dot = tuple[int, int] | tuple[float, float]
@@ -27,3 +29,15 @@ def RGB_to_OKLAB(source: RGB | np.ndarray) -> np.ndarray:
     ], axis=1)
 
     return source
+
+
+def to_point(point: np.ndarray) -> Point:
+    return Point(point)
+
+
+def to_polygon(poly: np.ndarray) -> Polygon:
+    return Polygon(poly)
+
+
+def polygon_contains_point(poly: Polygon, point: Point) -> bool:
+    return poly.contains(point)
