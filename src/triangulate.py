@@ -57,8 +57,14 @@ def raster_triangle(triangle: np.ndarray):
 
     points_inside = [
         np.array([x, y])
-        for x, y in zip(range(min_x, max_x), range(min_y, max_y))
+        for x in range(min_x, max_x)
+        for y in range(min_y, max_y)
         if polygon_contains_point(poly, to_point((x, y)))
     ]
 
-    return (triangle, np.concatenate((triangle, points_inside)))
+    if points_inside:
+        points = np.concatenate((triangle, points_inside))
+    else:
+        points = np.array(triangle)
+
+    return (triangle, points)
