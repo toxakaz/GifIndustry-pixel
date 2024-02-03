@@ -31,7 +31,7 @@ def sobel_kmeans_points(img: np.ndarray, n_triangles: int) -> np.ndarray:
     return scaler.inverse_transform(clusters/param_scales)
 
 
-def sobel_points(img: np.ndarray, n_points: int) -> tuple[tuple[int, int], dict]:
+def sobel_points(img: np.ndarray, n_points: int) -> tuple[list[tuple[int, int]], dict]:
     mag = np.sum(np.power(sobel(img[:, :, i]), 2) for i in range(img.shape[2]))
     mag_norm = mag / mag.sum()
     points = random.choices(
@@ -40,6 +40,13 @@ def sobel_points(img: np.ndarray, n_points: int) -> tuple[tuple[int, int], dict]
         weights=mag_norm.flat
     )
     return (points, dict())
+
+
+def square_grid(img: np.ndarray, n_points: int) -> tuple[list[tuple[int, int]], dict]:
+    x, y = img.shape[:2]
+    freq = np.sqrt(n_points/(x*y))
+    x_p, y_p = int(x*freq), int(y*freq)
+    return (np.array([(j/(y_p-1)*y, i/(x_p-1)*x) for i in range(x_p) for j in range(y_p)]).astype(int), dict())
 
 
 def build_triangles_delaunay(points: np.ndarray):
