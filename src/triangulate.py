@@ -64,12 +64,10 @@ def raster_triangle(triangle: np.ndarray):
     points = list(np.ndindex(tuple(max_xy - min_xy)))
     poly = to_polygon(triangle - min_xy)
 
-    points = np.array(points)[
-        np.array([
-            polygon_contains_xy(poly, p)
-            for p in points
-        ])
-    ]
+    points = np.array(points)[[
+        polygon_contains_xy(poly, p)
+        for p in points
+    ]]
 
     if 0 not in points.shape:
         points = np.concatenate((triangle, points + min_xy))
