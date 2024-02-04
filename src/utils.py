@@ -2,18 +2,25 @@ import numpy as np
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 from shapely import contains_xy, prepare
+import functools
 
 
-def memoize(func):
-    mem = {}
+def memoize(std_memoization):
+    def wrap(func):
+        mem = {}
 
-    def helper(param):
-        key = param.tobytes() if type(param) is np.ndarray else param
-        if key not in mem:
-            mem[key] = func(param)
-        return mem[key]
+        @functools.wraps(func)
+        def wrapped_f(param, memoization=std_memoization):
+            if memoization:
+                key = param.tobytes() if type(param) is np.ndarray else param
+                if key not in mem:
+                    mem[key] = func(param)
+                return mem[key]
+            else:
+                return func(param)
+        return wrapped_f
 
-    return helper
+    return wrap
 
 
 Dot = tuple[int, int] | tuple[float, float]
@@ -22,11 +29,11 @@ RGB = tuple[int, int, int] | tuple[float, float, float]
 OKLAB = tuple[float, float, float]
 
 
-def RGB_img_to_OKLAB(img: np.ndarray) -> np.ndarray:
-    return np.apply_along_axis(RGB_to_OKLAB, 2, img)
+def RGB_img_to_OKLAB(img: np.ndarray, memoization=True) -> np.ndarray:
+    return np.apply_along_axis(lambda x: RGB_to_OKLAB(x, memoization=memoization), 2, img)
 
 
-@memoize
+@memoize(True)
 def RGB_to_OKLAB(source: np.ndarray) -> np.ndarray:
     r, g, b = np.array(source, float)[:3] / 255
 

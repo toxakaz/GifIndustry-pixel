@@ -53,16 +53,24 @@ def build_triangles_delaunay(points: np.ndarray):
     return points[Delaunay(points).simplices]
 
 
-def raster_triangles(triangles: np.ndarray):
-    return [raster_triangle(triangle) for triangle in triangles]
+def raster_triangles(triangles: np.ndarray, memoization=False):
+    return [raster_triangle(triangle, memoization) for triangle in triangles]
 
 
-def raster_triangle(triangle: np.ndarray):
+def raster_triangle(triangle: np.ndarray, memoization=False):
     min_xy = np.min(triangle, axis=0)
+
+    points = raster_triangle_norm(triangle - min_xy, memoization=memoization)
+
+    return (triangle, points + min_xy)
+
+
+@memoize(False)
+def raster_triangle_norm(triangle: np.ndarray):
     max_xy = np.max(triangle, axis=0)
 
-    points = list(np.ndindex(tuple(max_xy - min_xy)))
-    poly = to_polygon(triangle - min_xy)
+    poly = to_polygon(triangle)
+    points = list(np.ndindex(tuple(max_xy)))
 
     points = np.array(points)[[
         polygon_contains_xy(poly, p)
@@ -70,8 +78,8 @@ def raster_triangle(triangle: np.ndarray):
     ]]
 
     if 0 not in points.shape:
-        points = np.concatenate((triangle, points + min_xy))
+        points = np.concatenate((triangle, points))
     else:
         points = triangle
 
-    return (triangle, points)
+    return points
