@@ -44,3 +44,7 @@ def polygon_contains_point(poly: Polygon, point: Point) -> bool:
 
 def polygon_contains_xy(poly: Polygon, point: tuple) -> bool:
     return contains_xy(poly, point[0], point[1])
+
+
+def get_colors(img: np.ndarray, points: np.ndarray) -> np.ndarray:
+    return img[points[:, 1], points[:, 0]]
