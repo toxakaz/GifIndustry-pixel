@@ -4,6 +4,18 @@ from shapely.geometry.polygon import Polygon
 from shapely import contains_xy, prepare
 
 
+def memoize(func):
+    mem = {}
+
+    def helper(param):
+        key = param.tobytes() if type(param) is np.ndarray else param
+        if key not in mem:
+            mem[key] = func(param)
+        return mem[key]
+
+    return helper
+
+
 Dot = tuple[int, int] | tuple[float, float]
 Color = tuple[int] | tuple[float]
 RGB = tuple[int, int, int] | tuple[float, float, float]
@@ -14,7 +26,8 @@ def RGB_img_to_OKLAB(img: np.ndarray) -> np.ndarray:
     return np.apply_along_axis(RGB_to_OKLAB, 2, img)
 
 
-def RGB_to_OKLAB(source: RGB | np.ndarray) -> np.ndarray:
+@memoize
+def RGB_to_OKLAB(source: np.ndarray) -> np.ndarray:
     r, g, b = np.array(source, float)[:3] / 255
 
     l = np.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
